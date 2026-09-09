@@ -1,14 +1,28 @@
-export type PlatformRole = 'super_admin' | 'admin' | 'staff' | 'viewer' | 'doctor';
+export type PlatformRole = 'super_admin' | 'tech_ops' | 'support' | 'billing_admin';
+
+export interface PlatformStaffMember {
+  id: string;
+  userId: string;
+  email: string;
+  fullName: string;
+  role: PlatformRole;
+  department?: string;
+  status: 'active' | 'suspended' | 'invited';
+  lastActiveAt?: string | null;
+  createdAt: string;
+}
 
 export interface UserRecord {
-  id: string;            // clinic_users row id
+  id: string;            // platform_staff row id
   userId: string;        // auth.users id
   email: string;
+  fullName?: string;
   role: PlatformRole;
-  clinicId: string | null; 
+  department?: string;
+  clinicId?: string | null; 
   createdAt: string;
   lastSignIn?: string | null;
-  status: 'active' | 'invited';
+  status: 'active' | 'suspended' | 'invited';
 }
 
 export interface Clinic {
@@ -48,6 +62,7 @@ export type PlatformTab =
   | 'subscriptions'
   | 'usage'
   | 'users'
+  | 'platform-team'
   | 'account-health'
   | 'audit-logs'
   | 'settings';
